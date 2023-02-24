@@ -1,5 +1,6 @@
 package com.alex.worshopmongo.resources;
 
+import com.alex.worshopmongo.domain.Post;
 import com.alex.worshopmongo.domain.User;
 import com.alex.worshopmongo.dto.UserDTO;
 import com.alex.worshopmongo.services.UserService;
@@ -52,6 +53,12 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok(obj.getPosts());
     }
 
 }
